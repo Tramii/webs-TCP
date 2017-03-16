@@ -1,7 +1,8 @@
-package mundo;
+package mundoServer;
 
 import java.io.*;
 import java.net.Socket;
+
 
 public class ServidorHilo extends Thread {
 	
@@ -52,8 +53,19 @@ public class ServidorHilo extends Thread {
 				//mensajes voy a mandar
 				System.out.println("voy a mandar "+cuantosMB+" MB");
 				byte [] mybytearray  = new byte [(int)file.length()];
+				
+				
+				long length = file.length();
+		        byte[] bytes = new byte[16 * 1024];
+				InputStream inFromFile = new FileInputStream(file);
+				int count;
+		        while ((count = inFromFile.read(bytes)) > 0) {
+		            outToClient.write(bytes, 0, count);
+		        }
+		        
 				outToClient.write(mybytearray,0,mybytearray.length);
 		        outToClient.flush();
+		        
 			}
 			
 			
@@ -63,7 +75,10 @@ public class ServidorHilo extends Thread {
 		}
 		finally{
 			try {
+		        outToClient.close();
+		        inFromClient.close();
 				cliente.close();
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

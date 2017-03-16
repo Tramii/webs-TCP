@@ -1,4 +1,4 @@
-package interfaz;
+package interfazClient;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package mundo;
+package mundoServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
