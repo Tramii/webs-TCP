@@ -47,23 +47,21 @@ public class ServidorHilo extends Thread {
 				//buffer de 1kB
 				cliente.setReceiveBufferSize(1024);
 				//aqui estoy mandando x mensajes de 1 MB
-				int cuantosBytes = (int)file.length();
-				int cuantosMB = cuantosBytes/(1024*1024);
+				long cuantosBytes = file.length();
+				int cuantosMB = (int) cuantosBytes/(1024*1024);
 				outToClient.writeInt(cuantosMB);//le indico al cliente cuantos
 				//mensajes voy a mandar
 				System.out.println("voy a mandar "+cuantosMB+" MB");
-				byte [] mybytearray  = new byte [(int)file.length()];
 				
 				
-				long length = file.length();
-		        byte[] bytes = new byte[16 * 1024];
+				//va a leer de a 1024 Bytes (mensaje) y mandarlos
+		        byte[] bytes = new byte[ 1024];
 				InputStream inFromFile = new FileInputStream(file);
 				int count;
 		        while ((count = inFromFile.read(bytes)) > 0) {
 		            outToClient.write(bytes, 0, count);
 		        }
 		        
-				outToClient.write(mybytearray,0,mybytearray.length);
 		        outToClient.flush();
 		        
 			}
