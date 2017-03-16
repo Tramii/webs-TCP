@@ -50,17 +50,19 @@ public class Servidor
 			try
 			{
 				cliente = server.accept();
-				ServidorHilo nuevo = new ServidorHilo(this, cliente);
 				
 				//verifica que solo haya ese numero de clientes
 				//verifica que clientesConectados no esta reservado por saleUnCliente
 				if(clientesConectados.size() <= NUM_MAX_CLIENTES-1)
 				{
+					//el ultimo parametro es el id para que se pueda eliminar luego
+					ServidorHilo nuevo = new ServidorHilo(this, cliente, clientesConectados.size());
 					nuevo.start();
 					clientesConectados.add(nuevo);
 				}
 				else
 				{
+					ServidorHilo nuevo = new ServidorHilo(this, cliente, -1 );
 					clientesEsperando.add(nuevo);
 				}
 
@@ -84,16 +86,18 @@ public class Servidor
 
 	}
 	
-	public void saleUnCliente()
+	public void saleUnCliente(int id)
 	{
 		//evita que otro cliente recien llegado entre a conectados de una
 		synchronized(clientesConectados)
 		{
+			clientesConectados.remove(id);
 			if(clientesEsperando.size() >0)
 			{
 				synchronized (clientesEsperando){
 					//saca al primero de la fila
 					ServidorHilo sale = clientesEsperando.remove(0);
+					sale.modificarId(clientesConectados.size());
 					sale.start();
 					clientesConectados.add(sale);
 				}
