@@ -10,13 +10,13 @@ public class Files {
 	
 	public Files()
 	{
-		algorit = new File("../../data/4,84MB.pdf");
-		python = new File("../../data/29MB.pdf");
-		coding = new File("../../data/90MB.pdf");
+		algorit = new File("./data/4,84MB.pdf");
+		python = new File("./data/29MB.pdf");
+		coding = new File("./data/90MB.pdf");
 	}
 	
 	public String darListaTitulos(){
-		return " 4,5MB.pdf 29MB.pdf 90MB.pdf";
+		return "4,84MB.pdf 29MB.pdf 90MB.pdf";
 	}
 	
 	public File returnFile(String nombre)
