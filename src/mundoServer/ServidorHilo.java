@@ -9,7 +9,11 @@ public class ServidorHilo extends Thread {
 	private Servidor servidor;
 	private Socket cliente;
 	private BufferedReader inFromClient;
-	private DataOutputStream outToClient;
+	private PrintWriter outToClient;
+	
+	//TCP
+	private DataOutputStream outputData;
+	 
 	private Files files;
 	private int id;
 	
@@ -22,7 +26,9 @@ public class ServidorHilo extends Thread {
 		
 		inFromClient =new BufferedReader(new InputStreamReader(client.getInputStream()));
 		
-		outToClient = new DataOutputStream(client.getOutputStream());
+		outToClient =new PrintWriter(client.getOutputStream(), true);
+		
+		outputData = new DataOutputStream(client.getOutputStream());
 		
 		files = new Files();
 		
@@ -32,24 +38,28 @@ public class ServidorHilo extends Thread {
 	public void run()
 	{
 		try {
-			outToClient.writeBytes("HI"+files.darListaTitulos());
-			
+			System.out.println("\n hilo para cliente "+id );
+			String recibeSaludo = inFromClient.readLine();
+			System.out.println("saludo "+ recibeSaludo);
+			outToClient.println("HI "+files.darListaTitulos());
+			System.out.println("envia inicio de conversacion "+"HI "+files.darListaTitulos());
 			String in = inFromClient.readLine();
-			
+			System.out.println("El cliente quiere "+in);
 			File file = files.returnFile(in);
 			
 			if(file == null)
 			{
-				outToClient.writeBytes("ERROR");
+				outToClient.println("ERROR file not found");
 			}
 			else
 			{
 				//buffer de 1kB
 				cliente.setReceiveBufferSize(1024);
+				
 				//aqui estoy mandando x mensajes de 1 MB
 				long cuantosBytes = file.length();
-				int cuantosMB = (int) cuantosBytes/(1024*1024);
-				outToClient.writeInt(cuantosMB);//le indico al cliente cuantos
+				double cuantosMB =  cuantosBytes/(1024*1024);
+				outToClient.println(cuantosMB);//le indico al cliente cuantos
 				//mensajes voy a mandar
 				System.out.println("voy a mandar "+cuantosMB+" MB");
 				
@@ -59,7 +69,7 @@ public class ServidorHilo extends Thread {
 				InputStream inFromFile = new FileInputStream(file);
 				int count;
 		        while ((count = inFromFile.read(bytes)) > 0) {
-		            outToClient.write(bytes, 0, count);
+		            outputData.write(bytes, 0, count);
 		        }
 		        
 		        outToClient.flush();
@@ -81,7 +91,7 @@ public class ServidorHilo extends Thread {
 				e.printStackTrace();
 			}
 			servidor.saleUnCliente(id);	
-			
+			System.out.println("\n termina el cliente con id "+id +"\n");
 		}
 	}
 	public void modificarId(int nuevo)

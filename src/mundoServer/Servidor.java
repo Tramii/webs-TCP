@@ -44,13 +44,15 @@ public class Servidor
 
 	public void aceptarConexionesTCP()
 	{
+		System.out.println("Entra aceptar conexiones");
 		while(true)
 		{
 			Socket cliente = null;
 			try
 			{
+				System.out.println("Esperando conexion");
 				cliente = server.accept();
-				
+				System.out.println("Llego un cliente");
 				//verifica que solo haya ese numero de clientes
 				//verifica que clientesConectados no esta reservado por saleUnCliente
 				if(clientesConectados.size() <= NUM_MAX_CLIENTES-1)
@@ -59,11 +61,13 @@ public class Servidor
 					ServidorHilo nuevo = new ServidorHilo(this, cliente, clientesConectados.size());
 					nuevo.start();
 					clientesConectados.add(nuevo);
+					System.out.println("añadio nuevo cliente");
 				}
 				else
 				{
 					ServidorHilo nuevo = new ServidorHilo(this, cliente, -1 );
 					clientesEsperando.add(nuevo);
+					System.out.println("esta esperando un nuevo cliente");
 				}
 
 
@@ -100,10 +104,14 @@ public class Servidor
 					sale.modificarId(clientesConectados.size());
 					sale.start();
 					clientesConectados.add(sale);
+					System.out.println("entra un cliente que estaba esperando");
 				}
 			}
 		}
 
+	}
+	public static void main(String[] args) {
+		Servidor server = new Servidor();
 	}
 
 }
