@@ -46,7 +46,7 @@ public class InterfazCliente extends JFrame{
 		//Agrego a la interfaz
 		add( panelIniciarCon, BorderLayout.NORTH );
 		
-		//cliente = new Cliente();
+		cliente = new Cliente();
 	}
 
 	//-----------------------------------------------------------------
