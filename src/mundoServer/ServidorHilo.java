@@ -46,6 +46,15 @@ public class ServidorHilo extends Thread {
 			System.out.println("\n hilo para cliente "+id );
 			String recibeSaludo = inFromClient.readLine();
 			System.out.println("saludo "+ recibeSaludo);
+			if(!recibeSaludo.equals("hola!"))
+			{
+				outToClient.println("ERROR no sigue protocolo");
+				throw new Exception("no sigue el protocolo");
+			}
+			///time out in millis
+			//el cliente tiene 2 minutos para pedir algo
+			cliente.setSoTimeout(1000*60*2);
+			
 			outToClient.println("HI "+files.darListaTitulos());
 			System.out.println("envia inicio de conversacion "+"HI "+files.darListaTitulos());
 			String in = inFromClient.readLine();
@@ -78,7 +87,8 @@ public class ServidorHilo extends Thread {
 		        int count;
 		        while ((count = inFromFile.read(bytes)) > 0) {
 		            output.write(bytes, 0, count);
-		            System.out.println("mandando al cliente el file");
+		            lleva += count;
+		            System.out.println("mandando al cliente el file, va"+lleva/(1024)+" KB");
 		        }
 		       
 		        System.out.println("termina de mandar el archivo");
@@ -86,7 +96,7 @@ public class ServidorHilo extends Thread {
 			
 			
 			
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally{
