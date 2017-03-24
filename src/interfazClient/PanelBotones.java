@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 public class PanelBotones extends JPanel implements ActionListener{
 	
 	private final static String INICIAR = "Iniciar conexión";
+	private final static String CERRAR = "Cerrar conexión";
 	private final static String DESCARGAR = "Descargar archivo";
 	private final static String DETENER = "Detener descarga";
 	private final static String CONTINUAR = "Continuar descarga";
@@ -18,9 +19,13 @@ public class PanelBotones extends JPanel implements ActionListener{
 
 	private InterfazCliente principal;
 	
-	private JPanel subpanel;
+	private JPanel subpanel1;
+	
+	private JPanel subpanel2;
 	
 	private JButton btIniciar;
+	
+	private JButton btCerrar;
 	
 	private JButton btDescargar;
 	
@@ -35,13 +40,21 @@ public class PanelBotones extends JPanel implements ActionListener{
 		setLayout(new GridLayout(2,1));		
 		setBorder(new TitledBorder("Botoncitos"));
 		
-		subpanel = new JPanel();
-		subpanel.setLayout(new GridLayout(1,3));
+		subpanel1 = new JPanel();
+		subpanel1.setLayout(new GridLayout(1, 2));
+		
+		subpanel2 = new JPanel();
+		subpanel2.setLayout(new GridLayout(1,3));
 		
 		btIniciar = new JButton();
 		btIniciar.setText(INICIAR);
 		btIniciar.setActionCommand(INICIAR);
 		btIniciar.addActionListener(this);
+		
+		btCerrar = new JButton();
+		btCerrar.setText(CERRAR);
+		btCerrar.setActionCommand(CERRAR);
+		btCerrar.addActionListener(this);
 		
 		btDescargar = new JButton();
 		btDescargar.setText(DESCARGAR);
@@ -58,11 +71,15 @@ public class PanelBotones extends JPanel implements ActionListener{
 		btContinuar.setActionCommand(CONTINUAR);
 		btContinuar.addActionListener(this);
 		
-		add(btIniciar);
-		add(subpanel);
-		subpanel.add(btDescargar);
-		subpanel.add(btDetener);
-		subpanel.add(btContinuar);
+		add(subpanel1);
+		add(subpanel2);
+		
+		subpanel1.add(btIniciar);
+		subpanel1.add(btCerrar);
+		
+		subpanel2.add(btDescargar);
+		subpanel2.add(btDetener);
+		subpanel2.add(btContinuar);
 	}
 
 	@Override
@@ -70,13 +87,18 @@ public class PanelBotones extends JPanel implements ActionListener{
 		
 		String comando = e.getActionCommand();
 		
-		if (comando.equals(DESCARGAR)){
-			principal.descargar();
-		}
-		
-		else if(comando.equals(INICIAR)){
+		if(comando.equals(INICIAR)){
 			principal.iniciarConexion();
 		}
+		
+		else if (comando.equals(CERRAR)){
+			principal.cerrarConexion();
+		}
+		
+		else if (comando.equals(DESCARGAR)){
+			principal.descargar();
+		}	
+		
 		
 		else if(comando.equals(DETENER)){
 			principal.detener();
