@@ -71,7 +71,7 @@ public class PanelBotones extends JPanel implements ActionListener{
 		String comando = e.getActionCommand();
 		
 		if (comando.equals(DESCARGAR)){
-			
+			principal.descargar();
 		}
 		
 		else if(comando.equals(INICIAR)){
@@ -79,11 +79,11 @@ public class PanelBotones extends JPanel implements ActionListener{
 		}
 		
 		else if(comando.equals(DETENER)){
-			
+			principal.detener();
 		}
 		
 		else if(comando.equals(CONTINUAR)){
-			
+			principal.continuar();
 		}
 		
 	}

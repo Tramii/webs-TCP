@@ -77,6 +77,15 @@ public class InterfazCliente extends JFrame{
 	public Cliente darCliente(){
 		return cliente;
 	}
+	public void descargar(){
+		//todo
+	}
+	public void detener(){
+		//todo
+	}
+	public void continuar(){
+		//todo
+	}
 	/**
 	 * Inicializa la aplicación
 	 * @param args argumentos de la aplicación, no se requiere ninguno
