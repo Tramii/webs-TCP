@@ -1,5 +1,6 @@
 package interfazClient;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -22,7 +23,8 @@ public class PanelEstadoConexion extends JPanel{
 		setLayout(new GridLayout(1,1));		
 		setBorder(new TitledBorder("Estado de la conexión"));
 		
-		txtEstado = new JTextField("No hay conexión");
+		txtEstado = new JTextField("");
+		txtEstado.setHorizontalAlignment(JTextField.CENTER);
 		txtEstado.setEditable(false);
 		
 		add(txtEstado);
@@ -32,8 +34,10 @@ public class PanelEstadoConexion extends JPanel{
 	}
 	
 	public void cambiarEstadoConexion(boolean nuevoEstado){
-		txtEstado.setText(nuevoEstado?"Esta conectado":"No hay conexion");
+		txtEstado.setText(nuevoEstado?"Está conectado":"No hay conexión");
+		txtEstado.setBackground(nuevoEstado?Color.GREEN:Color.RED);
 	}
+	
 	public Cliente pedirCliente(){
 		return principal.darCliente();
 	}
