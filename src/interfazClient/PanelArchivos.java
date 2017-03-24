@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 public class PanelArchivos extends JPanel{
@@ -35,7 +36,7 @@ public class PanelArchivos extends JPanel{
 		panelIzq.add(archivo2);
 		panelIzq.add(archivo3);
 		
-		textLabel = new JLabel();
+		textLabel = new JLabel("Inicia conexion para ver archivos",SwingConstants.CENTER);
 		panelDer.add(textLabel);
 		
 		setLayout(new GridLayout(1,2));
@@ -49,10 +50,10 @@ public class PanelArchivos extends JPanel{
 		files ="";
 		for(int i=0; i< file.length;i++)
 		{
-			files+= (i+1)+". "+file[i]+"\n \n \n";
+			files+= "<br/>"+(i+1)+". "+file[i]+"<br/> ";
 		}
 		
-		textLabel.setText("Los archivos posibles a descargar son: \n"+files);
+		textLabel.setText("<html>Los archivos posibles a descargar son: <br/>"+files+"</html>");
 	}
 
 }

@@ -74,6 +74,9 @@ public class InterfazCliente extends JFrame{
 		listaFiles = cliente.iniciarConexion();
 		panelArchivos.actualizarLabelFiles(listaFiles);
 	}
+	public Cliente darCliente(){
+		return cliente;
+	}
 	/**
 	 * Inicializa la aplicación
 	 * @param args argumentos de la aplicación, no se requiere ninguno
