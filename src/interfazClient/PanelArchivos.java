@@ -36,7 +36,7 @@ public class PanelArchivos extends JPanel{
 		panelIzq.add(archivo2);
 		panelIzq.add(archivo3);
 		
-		textLabel = new JLabel("Inicia conexion para ver archivos",SwingConstants.CENTER);
+		textLabel = new JLabel("Inicia conexión para ver archivos",SwingConstants.CENTER);
 		panelDer.add(textLabel);
 		
 		setLayout(new GridLayout(1,2));
@@ -54,6 +54,22 @@ public class PanelArchivos extends JPanel{
 		}
 		
 		textLabel.setText("<html>Los archivos posibles a descargar son: <br/>"+files+"</html>");
+	}
+	
+	public int darSeleccionado (){
+		
+		int seleccionado = -1;
+		boolean es1 = archivo1.isSelected();
+		boolean es2 = archivo2.isSelected();
+		boolean es3 = archivo3.isSelected();
+		
+		if((es1&&es2)||(es1&&es3)||(es2&&es3)) seleccionado=0;
+		
+		else if (es1) seleccionado=1;
+		else if (es2) seleccionado=2;
+		else if (es3) seleccionado=3;
+		
+		return seleccionado;		
 	}
 
 }
