@@ -17,7 +17,7 @@ public class Cliente {
 	private BufferedReader inFromServerLine;
 	private PrintWriter outToServer;
 	private String archivosDisponibles;
-	private BufferedOutputStream bos;
+	private FileOutputStream fos;
 	
 	
 	public Cliente()
@@ -73,25 +73,23 @@ public class Cliente {
         File file = new File("./descargas/"+titulo);
         // Get the size of the file
         
-        bos = new BufferedOutputStream(new FileOutputStream(file));
+        fos = new FileOutputStream(file);
         
         
-        byte [] mybytearray  = new byte [1024];
+        byte [] bytes  = new byte [1024*16];
         String tamanoEnMB = inFromServerLine.readLine();
         System.out.println("\n ya va a recibir el archivo que pesa "+tamanoEnMB);
-        int bytesRead = inFromServer.read(mybytearray,0,mybytearray.length);
-        int current = bytesRead;
+        int bytesRead = 0;
+        int current = 0;
         
-        while(bytesRead > -1)
-        {
-           bytesRead = inFromServer.read(mybytearray, current, (mybytearray.length-current));
-           if(bytesRead >= 0){
-        	   current += bytesRead;
-           }
+        int count;
+        while ((count = inFromServer.read(bytes)) > 0) {
+            fos.write(bytes, 0, count);
+            current+=count;
+            System.out.println("escribiendo en el archivo");
         }
 
-        bos.write(mybytearray, 0 , current);
-        bos.flush();
+ 	   
         System.out.println("File " + titulo
             + " downloaded (" + current + " bytes read)");
         System.out.println("\n en la rutadelrepo/descargas se encuentra el archivo descargado");

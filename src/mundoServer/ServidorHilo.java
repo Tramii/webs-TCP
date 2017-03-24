@@ -11,8 +11,12 @@ public class ServidorHilo extends Thread {
 	private BufferedReader inFromClient;
 	private PrintWriter outToClient;
 	
+	private InputStream inFromFile;
+	
 	//TCP
+	private OutputStream output;
 	private DataOutputStream outputData;
+	
 	 
 	private Files files;
 	private int id;
@@ -28,7 +32,8 @@ public class ServidorHilo extends Thread {
 		
 		outToClient =new PrintWriter(client.getOutputStream(), true);
 		
-		outputData = new DataOutputStream(client.getOutputStream());
+		output = client.getOutputStream();
+		outputData = new DataOutputStream(output);
 		
 		files = new Files();
 		
@@ -61,19 +66,22 @@ public class ServidorHilo extends Thread {
 				double cuantosMB =  cuantosBytes/(1024*1024);
 				outToClient.println(cuantosMB);//le indico al cliente cuantos
 				//mensajes voy a mandar
-				System.out.println("voy a mandar "+cuantosMB+" MB");
+				System.out.println("voy a mandar "+cuantosMB+" MB \n");
 				
 				
 				//va a leer de a 1024 Bytes (mensaje) y mandarlos
-		        byte[] bytes = new byte[ 1024];
-				InputStream inFromFile = new FileInputStream(file);
-				int count;
+		        byte[] bytes = new byte[ 1024*16];
+				long lleva=0;
+				
+				inFromFile = new FileInputStream(file);
+				
+		        int count;
 		        while ((count = inFromFile.read(bytes)) > 0) {
-		            outputData.write(bytes, 0, count);
+		            output.write(bytes, 0, count);
+		            System.out.println("mandando al cliente el file");
 		        }
-		        
-		        outToClient.flush();
-		        
+		       
+		        System.out.println("termina de mandar el archivo");
 			}
 			
 			
