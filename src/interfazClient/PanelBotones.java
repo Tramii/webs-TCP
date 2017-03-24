@@ -75,7 +75,7 @@ public class PanelBotones extends JPanel implements ActionListener{
 		}
 		
 		else if(comando.equals(INICIAR)){
-			
+			principal.iniciarConexion();
 		}
 		
 		else if(comando.equals(DETENER)){

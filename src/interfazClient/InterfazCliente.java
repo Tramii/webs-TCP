@@ -34,6 +34,8 @@ public class InterfazCliente extends JFrame{
      * Panel para desplegar archivos disponibles
      */
 	private PanelArchivos panelArchivos;
+	
+	private String listaFiles;
 
 	//-----------------------------------------------------------------
     // Constructores
@@ -60,13 +62,18 @@ public class InterfazCliente extends JFrame{
 		add( panelArchivos, BorderLayout.CENTER );
 		add( panelBotones, BorderLayout.SOUTH );
 		
-		//cliente = new Cliente();
+		cliente = new Cliente();
+		listaFiles= "No se ha establecido conexion";
 	}
 
 	//-----------------------------------------------------------------
 	// Ejecución
 	//-----------------------------------------------------------------
-
+	public void iniciarConexion()
+	{
+		listaFiles = cliente.iniciarConexion();
+		panelArchivos.actualizarLabelFiles(listaFiles);
+	}
 	/**
 	 * Inicializa la aplicación
 	 * @param args argumentos de la aplicación, no se requiere ninguno
