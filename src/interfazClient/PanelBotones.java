@@ -68,6 +68,24 @@ public class PanelBotones extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		String comando = e.getActionCommand();
+		
+		if (comando.equals(DESCARGAR)){
+			
+		}
+		
+		else if(comando.equals(INICIAR)){
+			
+		}
+		
+		else if(comando.equals(DETENER)){
+			
+		}
+		
+		else if(comando.equals(CONTINUAR)){
+			
+		}
+		
 	}
 
 }

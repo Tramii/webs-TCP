@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import javafx.scene.layout.Border;
 import mundoClient.Cliente;
 
 public class InterfazCliente extends JFrame{
@@ -28,6 +29,11 @@ public class InterfazCliente extends JFrame{
      * Panel para desplegar botones
      */
 	private PanelBotones panelBotones;
+	
+	/**
+     * Panel para desplegar archivos disponibles
+     */
+	private PanelArchivos panelArchivos;
 
 	//-----------------------------------------------------------------
     // Constructores
@@ -39,7 +45,7 @@ public class InterfazCliente extends JFrame{
 	public InterfazCliente(){
 
 		setLayout(new BorderLayout());
-		setSize(550,530);
+		setSize(550,300);
 		setResizable(false);
 		setTitle( "Cliente TCP" );
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -47,12 +53,14 @@ public class InterfazCliente extends JFrame{
         //Incializo panel
 		panelEstado = new PanelEstadoConexion(this);
 		panelBotones= new PanelBotones(this);
+		panelArchivos = new PanelArchivos(this);
 		
 		//Agrego a la interfaz
 		add( panelEstado, BorderLayout.NORTH );
+		add( panelArchivos, BorderLayout.CENTER );
 		add( panelBotones, BorderLayout.SOUTH );
 		
-		cliente = new Cliente();
+		//cliente = new Cliente();
 	}
 
 	//-----------------------------------------------------------------
