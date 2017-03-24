@@ -19,9 +19,13 @@ public class Cliente {
 	private String archivosDisponibles;
 	private FileOutputStream fos;
 	
+	private boolean estadoConectado;
 	
 	public Cliente()
 	{
+		estadoConectado=false;
+	}
+	public void iniciarConexion(){
         Socket socket = null;
         archivosDisponibles = "";
         String host = "127.0.0.1";
@@ -29,6 +33,9 @@ public class Cliente {
         try {
         	System.out.println("creando socket en "+host  );
 			socket = new Socket(host, 8089);
+			
+			estadoConectado = true;
+			
 			inFromServer = socket.getInputStream();
 			inFromServerLine = new BufferedReader(new InputStreamReader(inFromServer));
 			
@@ -64,10 +71,11 @@ public class Cliente {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+        	estadoConectado = false;
         }
-        
-
 	}
+	
+	
     public void pedirArchivo(String titulo) throws Exception{
         outToServer.println(titulo);
         File file = new File("./descargas/"+titulo);
@@ -94,6 +102,9 @@ public class Cliente {
             + " downloaded (" + current + " bytes read)");
         System.out.println("\n en la rutadelrepo/descargas se encuentra el archivo descargado");
         
+    }
+    public boolean darEstadoConexion(){
+    	return estadoConectado;
     }
     
     
