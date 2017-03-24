@@ -20,10 +20,14 @@ public class InterfazCliente extends JFrame{
     private Cliente cliente;
 	
 	/**
-     * Panel para desplegar boton de inicio de conexion
+     * Panel para desplegar estado de la conexion
      */
-	private PanelIniciarConexion panelIniciarCon;
-
+	private PanelEstadoConexion panelEstado;
+	
+	/**
+     * Panel para desplegar botones
+     */
+	private PanelBotones panelBotones;
 
 	//-----------------------------------------------------------------
     // Constructores
@@ -41,10 +45,12 @@ public class InterfazCliente extends JFrame{
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         
         //Incializo panel
-		panelIniciarCon = new PanelIniciarConexion(this);
+		panelEstado = new PanelEstadoConexion(this);
+		panelBotones= new PanelBotones(this);
 		
 		//Agrego a la interfaz
-		add( panelIniciarCon, BorderLayout.NORTH );
+		add( panelEstado, BorderLayout.NORTH );
+		add( panelBotones, BorderLayout.SOUTH );
 		
 		cliente = new Cliente();
 	}
