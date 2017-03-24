@@ -18,16 +18,28 @@ public class Cliente {
 	private PrintWriter outToServer;
 	private String archivosDisponibles;
 	private FileOutputStream fos;
+	private Socket socket;
 	
 	private boolean estadoConectado;
 	
 	public Cliente()
 	{
+		Socket socket = null;
 		estadoConectado=false;
 	}
-	public void iniciarConexion(){
-        Socket socket = null;
-        archivosDisponibles = "";
+	
+	/**
+	 * queda la conexion ABIERTA si todo sale bien.
+	 * Si no se hace una peticion pronto, el servidor desconecta por time out
+	 * 
+	 * SE CUENTAN CON 2 MINUTOS ANTES DEL TIME OUT! SE DEBE LLAMAR A 
+	 * PEDIR ARCHIVO ANTES DE 2 MINUTOS
+	 * 
+	 * return los files disponibles en el server
+	 */
+	public String iniciarConexion(){
+        
+        archivosDisponibles = "No se pudieron recuperar archivos. Intente conectar";
         String host = "127.0.0.1";
 
         try {
@@ -44,65 +56,100 @@ public class Cliente {
 			outToServer.println("hola!");
 			
 			System.out.println(" ya mando saludo");
-			
 			System.out.println("esperando linea del servidor");
+			
 			String inicia = inFromServerLine.readLine();
 			if(!inicia.startsWith("HI"))
 			{
 				//bad request
-				socket.close();
+				throw new Exception(" no respondio con HI y lista de files");
 			}
 			else
 			{
 				System.out.println("le llego un mensaje del server con los archivos");
 				archivosDisponibles = inicia.replace("HI ","");
 				System.out.println(archivosDisponibles);
-				System.out.println("va a pedir "+archivosDisponibles.split(" ")[0]);
-				pedirArchivo(archivosDisponibles.split(" ")[0].trim());
+				
+			//NO cierra el socket!! no lo cierra porque todavia falta pedir las cosas!!
+				
+				return archivosDisponibles;
 			}
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-        finally{
         	try {
 				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException f) {
+				f.printStackTrace();
 			}
         	estadoConectado = false;
-        }
+		} 
+        return archivosDisponibles;
 	}
 	
-	
-    public void pedirArchivo(String titulo) throws Exception{
-        outToServer.println(titulo);
-        File file = new File("./descargas/"+titulo);
-        // Get the size of the file
-        
-        fos = new FileOutputStream(file);
-        
-        
-        byte [] bytes  = new byte [1024*16];
-        String tamanoEnMB = inFromServerLine.readLine();
-        System.out.println("\n ya va a recibir el archivo que pesa "+tamanoEnMB);
-        int bytesRead = 0;
-        int current = 0;
-        
-        int count;
-        while ((count = inFromServer.read(bytes)) > 0) {
-            fos.write(bytes, 0, count);
-            current+=count;
-            System.out.println("escribiendo en el archivo");
-        }
+	/**
+	 * le llega un titulo por parametro y lo recupera y lo guarda en /descargas
+	 * @param titulo
+	 * @throws Exception
+	 */
+    public String pedirArchivo(String titulo) {
+    	try{
+    		if(socket == null)
+    		{
+    			return "error de conexion";
+    		}
+            outToServer.println(titulo);
+            System.out.println("va a pedir "+titulo);
+            File file = new File("./descargas/"+titulo);
+            // Get the size of the file
+            
+            fos = new FileOutputStream(file);
+            
+            
+            byte [] bytes  = new byte [1024*16];
+            String tamanoEnMB = inFromServerLine.readLine();
+            System.out.println("\n ya va a recibir el archivo que pesa "+tamanoEnMB);
+            int bytesRead = 0;
+            int current = 0;
+            
+            int count;
+            while ((count = inFromServer.read(bytes)) > 0) {
+                fos.write(bytes, 0, count);
+                current+=count;
+                System.out.println("escribiendo en el archivo");
+            }
 
- 	   
-        System.out.println("File " + titulo
-            + " downloaded (" + current + " bytes read)");
-        System.out.println("\n en la rutadelrepo/descargas se encuentra el archivo descargado");
-        
+     	   
+            System.out.println("File " + titulo
+                + " downloaded (" + current + " bytes read)");
+            System.out.println("\n en la rutadelrepo/descargas se encuentra el archivo descargado");
+            
+    	}
+    	 catch (Exception e) {
+ 			e.printStackTrace();
+         	try {
+ 				socket.close();
+ 				estadoConectado = false;
+ 			} catch (IOException f) {
+ 				f.printStackTrace();
+ 			}
+         	return "error de conexion";
+ 		} 
+    	/**
+    	 * siempre que termina de descargar algo, cierra conexion
+    	 */
+        try {
+        	estadoConectado = false;
+			socket.close();
+			socket = null;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return "el archivo fue correctamente descargado a /descargas";
     }
+    
+    
     public boolean darEstadoConexion(){
     	return estadoConectado;
     }
