@@ -15,6 +15,7 @@ public class ServidorHilo extends Thread {
 	
 	//TCP
 	private OutputStream output;
+	@SuppressWarnings("unused")
 	private DataOutputStream outputData;
 	
 	 
