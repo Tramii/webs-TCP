@@ -128,12 +128,13 @@ public class Cliente extends Thread{
             System.out.println("\n ya va a recibir el archivo que pesa "+tamanoEnMB);
             //int bytesRead = 0;
             int current = 0;
-            
+            int i=0;
             int count;
             while ((count = inFromServer.read(bytes)) > 0) {
                 fos.write(bytes, 0, count);
+                i++;
                 current+=count;
-                System.out.println("Escribiendo en el archivo, mensaje ");
+                System.out.println("Escribiendo en el archivo el mensaje "+i+ " "+new String(bytes));
             }
 
      	   
