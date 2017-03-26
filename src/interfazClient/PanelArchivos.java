@@ -58,8 +58,10 @@ public class PanelArchivos extends JPanel{
 		panelIzq.add(archivo1);
 		panelIzq.add(archivo2);
 		panelIzq.add(archivo3);
+		panelIzq.repaint();
 		
 		textLabel.setText("<html>Archivos disponibles para descargar: <br/>"+files+"</html>");
+		
 	}
 	public void cerrarConexion(){
 		
