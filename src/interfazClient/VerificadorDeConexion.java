@@ -10,13 +10,12 @@ public class VerificadorDeConexion extends Thread {
 	}
 	
 	public void run(){
-		int contador =0;
 		while(true)
 		{
 			//cambiarEstadoConexion
 			if(panelEstado.pedirCliente() != null)
 			{
-				boolean conexion = panelEstado.pedirCliente().darEstadoConexion();
+				boolean conexion = ((Cliente)panelEstado.pedirCliente()).darEstadoConexion();
 				panelEstado.cambiarEstadoConexion(conexion);
 				System.out.println("Conexión abierta:"+ conexion);
 				try {
@@ -26,6 +25,11 @@ public class VerificadorDeConexion extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			else
+			{
+				System.out.println("No hay cliente aun");
+				yield();
 			}
 
 		}

@@ -31,6 +31,8 @@ public class PanelEstadoConexion extends JPanel{
 		
 		VerificadorDeConexion verificador = new VerificadorDeConexion(this);
 		verificador.start();
+		
+		cambiarEstadoConexion(false);
 	}
 	
 	public void cambiarEstadoConexion(boolean nuevoEstado){
