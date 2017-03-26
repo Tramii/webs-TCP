@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Cliente {
+public class Cliente extends Thread{
 	
 	private InputStream inFromServer;
 	private BufferedReader inFromServerLine;
@@ -19,10 +19,13 @@ public class Cliente {
 	private Socket socket;
 	
 	private boolean estadoConectado;
+	private String tituloAPedir;
+	
 	
 	public Cliente()
 	{
 		estadoConectado=false;
+		tituloAPedir =null;
 	}
 	
 	/**
@@ -84,22 +87,33 @@ public class Cliente {
         return archivosDisponibles;
 	}
 	
-
+	
+	
+	public void run(){
+		if(tituloAPedir != null && socket != null)
+		{
+			pedirArchivo();
+		}
+	}
+    public void tituloAPedir(String titulo)
+    {
+    	tituloAPedir = titulo;
+    }
 	
 	/**
 	 * Le llega un título por parámetro, lo recupera y lo guarda en ./descargas
 	 * @param titulo
 	 * @throws Exception
 	 */
-    public String pedirArchivo(String titulo) {
+    public String pedirArchivo() {
     	try{
-    		if(socket == null)
+    		if(socket == null )
     		{
     			return "error de conexion";
     		}
-            outToServer.println(titulo);
-            System.out.println("va a pedir "+titulo);
-            File file = new File("./descargas/"+titulo);
+            outToServer.println(tituloAPedir);
+            System.out.println("va a pedir "+tituloAPedir);
+            File file = new File("./descargas/"+tituloAPedir);
             // Get the size of the file
             
             fos = new FileOutputStream(file);
@@ -115,11 +129,11 @@ public class Cliente {
             while ((count = inFromServer.read(bytes)) > 0) {
                 fos.write(bytes, 0, count);
                 current+=count;
-                System.out.println("Escribiendo en el archivo");
+                System.out.println("Escribiendo en el archivo, mensaje "+ ((byte)count));
             }
 
      	   
-            System.out.println("File " + titulo
+            System.out.println("File " + tituloAPedir
                 + " downloaded (" + current + " bytes read)");
             System.out.println("\n en la <rutadelrepo>/descargas se encuentra el archivo descargado");
             

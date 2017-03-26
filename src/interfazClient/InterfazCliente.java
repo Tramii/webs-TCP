@@ -88,9 +88,25 @@ public class InterfazCliente extends JFrame{
 		
 		if (seleccionado==-1) JOptionPane.showMessageDialog(this, "Se debe seleccionar un archivo", "Error", JOptionPane.ERROR_MESSAGE);
 		if (seleccionado==0) JOptionPane.showMessageDialog(this, "Se debe seleccionar sólo un archivo", "Error", JOptionPane.ERROR_MESSAGE);
-		else if (seleccionado==1) cliente.pedirArchivo("4,84MB.pdf");
-		else if (seleccionado==2) cliente.pedirArchivo("29MB.pdf");
-		else if (seleccionado==3) cliente.pedirArchivo("90MB.pdf");
+		else{
+			if (seleccionado==1){
+				cliente.tituloAPedir("4,84MB.pdf");
+				cliente.start();
+			}
+		else{
+			if (seleccionado==2){
+				cliente.tituloAPedir("29MB.pdf");
+				cliente.start();
+			}
+		else{
+			if (seleccionado==3){
+				cliente.tituloAPedir("90MB.pdf");
+				cliente.start();
+			}
+			}
+		}
+		}
+
 		
 	}
 	
