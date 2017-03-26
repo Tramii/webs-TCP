@@ -96,7 +96,7 @@ public class InterfazCliente extends JFrame{
 	}
 	
 	public void detener(){
-		//TODO
+		cliente.detenerDescarga();
 	}
 	
 	public void continuar(){

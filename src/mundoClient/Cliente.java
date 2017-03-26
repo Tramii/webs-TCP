@@ -159,6 +159,10 @@ public class Cliente {
         return "el archivo fue correctamente descargado a /descargas";
     }
     
+    public void detenerDescarga(){
+    	
+    }
+    
     
     public boolean darEstadoConexion(){
     	return estadoConectado;
