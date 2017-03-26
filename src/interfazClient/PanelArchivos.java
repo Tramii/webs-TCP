@@ -8,8 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class PanelArchivos extends JPanel{
 	
+	@SuppressWarnings("unused")
 	private InterfazCliente principal;
 	
 	private JCheckBox archivo1;
@@ -53,7 +55,7 @@ public class PanelArchivos extends JPanel{
 			files+= "<br/>"+(i+1)+". "+file[i]+"<br/> ";
 		}
 		
-		textLabel.setText("<html>Los archivos posibles a descargar son: <br/>"+files+"</html>");
+		textLabel.setText("<html>Archivos disponibles para descargar: <br/>"+files+"</html>");
 	}
 	
 	public int darSeleccionado (){

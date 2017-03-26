@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import javafx.scene.layout.Border;
 import mundoClient.Cliente;
 
 public class InterfazCliente extends JFrame{
@@ -97,10 +96,6 @@ public class InterfazCliente extends JFrame{
 	
 	public void detener(){
 		cliente.detenerDescarga();
-	}
-	
-	public void continuar(){
-		//TODO
 	}
 	
 	/**

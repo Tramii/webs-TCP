@@ -19,10 +19,10 @@ public class VerificadorDeConexion extends Thread {
 			{
 				boolean conexion = cliente.darEstadoConexion();
 				panelEstado.cambiarEstadoConexion(conexion);
-				System.out.println("revisando estado "+ conexion);
+				System.out.println("Conexión abierta:"+ conexion);
 				try {
 					//cada 3 segundos revisa si hay conexion
-					this.sleep(3000);
+					VerificadorDeConexion.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

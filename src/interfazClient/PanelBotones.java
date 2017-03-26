@@ -8,14 +8,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+@SuppressWarnings("serial")
 public class PanelBotones extends JPanel implements ActionListener{
 	
 	private final static String INICIAR = "Iniciar conexión";
 	private final static String CERRAR = "Cerrar conexión";
 	private final static String DESCARGAR = "Descargar archivo";
 	private final static String DETENER = "Detener descarga";
-	private final static String CONTINUAR = "Continuar descarga";
-
 
 	private InterfazCliente principal;
 	
@@ -31,8 +30,6 @@ public class PanelBotones extends JPanel implements ActionListener{
 	
 	private JButton btDetener;
 	
-	private JButton btContinuar;
-	
 	public PanelBotones(InterfazCliente interfaz){
 		
 		principal = interfaz;
@@ -44,7 +41,7 @@ public class PanelBotones extends JPanel implements ActionListener{
 		subpanel1.setLayout(new GridLayout(1, 2));
 		
 		subpanel2 = new JPanel();
-		subpanel2.setLayout(new GridLayout(1,3));
+		subpanel2.setLayout(new GridLayout(1, 2));
 		
 		btIniciar = new JButton();
 		btIniciar.setText(INICIAR);
@@ -66,11 +63,6 @@ public class PanelBotones extends JPanel implements ActionListener{
 		btDetener.setActionCommand(DETENER);
 		btDetener.addActionListener(this);
 		
-		btContinuar = new JButton();
-		btContinuar.setText("Otro botón");
-		btContinuar.setActionCommand(CONTINUAR);
-		btContinuar.addActionListener(this);
-		
 		add(subpanel1);
 		add(subpanel2);
 		
@@ -79,7 +71,6 @@ public class PanelBotones extends JPanel implements ActionListener{
 		
 		subpanel2.add(btDescargar);
 		subpanel2.add(btDetener);
-		subpanel2.add(btContinuar);
 	}
 
 	@Override
@@ -98,15 +89,11 @@ public class PanelBotones extends JPanel implements ActionListener{
 		else if (comando.equals(DESCARGAR)){
 			principal.descargar();
 		}	
-		
-		
+				
 		else if(comando.equals(DETENER)){
 			principal.detener();
 		}
 		
-		else if(comando.equals(CONTINUAR)){
-			principal.continuar();
-		}
 		
 	}
 

@@ -40,7 +40,7 @@ public class Cliente {
         String host = "127.0.0.1";
 
         try {
-        	System.out.println("creando socket en "+host  );
+        	System.out.println("Creando socket en "+host  );
 			socket = new Socket(host, 8089);
 			
 			estadoConectado = true;
@@ -52,8 +52,8 @@ public class Cliente {
 			
 			outToServer.println("hola!");
 			
-			System.out.println(" ya mando saludo");
-			System.out.println("esperando linea del servidor");
+			System.out.println("Envía saludo");
+			System.out.println("Espera respuesta del servidor");
 			
 			String inicia = inFromServerLine.readLine();
 			if(!inicia.startsWith("HI"))
@@ -63,7 +63,6 @@ public class Cliente {
 			}
 			else
 			{
-				System.out.println("le llego un mensaje del server con los archivos");
 				archivosDisponibles = inicia.replace("HI ","");
 				System.out.println(archivosDisponibles);
 				
@@ -116,22 +115,22 @@ public class Cliente {
             while ((count = inFromServer.read(bytes)) > 0) {
                 fos.write(bytes, 0, count);
                 current+=count;
-                System.out.println("escribiendo en el archivo");
+                System.out.println("Escribiendo en el archivo");
             }
 
      	   
             System.out.println("File " + titulo
                 + " downloaded (" + current + " bytes read)");
-            System.out.println("\n en la rutadelrepo/descargas se encuentra el archivo descargado");
+            System.out.println("\n en la <rutadelrepo>/descargas se encuentra el archivo descargado");
             
     	}
     	 catch (Exception e) {
  			e.printStackTrace();
          	cerrarConexion();
-         	return "error de conexion";
+         	return "Error de conexión";
  		} 
     	cerrarConexion();
-        return "el archivo fue correctamente descargado a /descargas";
+        return "El archivo fue correctamente descargado en la carpeta ./descargas";
     }
     
     
@@ -156,7 +155,7 @@ public class Cliente {
 
     
     public void detenerDescarga(){
-    	
+    	cerrarConexion();
     }
     
     
