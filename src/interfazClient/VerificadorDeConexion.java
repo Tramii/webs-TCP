@@ -29,7 +29,11 @@ public class VerificadorDeConexion extends Thread {
 			else
 			{
 				System.out.println("No hay cliente aun");
-				yield();
+				try {
+					VerificadorDeConexion.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 
 		}
