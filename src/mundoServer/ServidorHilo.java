@@ -99,6 +99,7 @@ public class ServidorHilo extends Thread {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println(" el socket fue cerrado.");
 		}
 		finally{
 			try {
