@@ -148,7 +148,7 @@ public class Cliente {
 			socket.close();
 			socket = null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Se ha detenido la descarga. No se podrá abrir el archivo.");
 		}
     	
     }
