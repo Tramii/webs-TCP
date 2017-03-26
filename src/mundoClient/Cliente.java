@@ -106,6 +106,7 @@ public class Cliente extends Thread{
 	 * @throws Exception
 	 */
     public String pedirArchivo() {
+    	File file = null;
     	try{
     		if(socket == null )
     		{
@@ -113,7 +114,7 @@ public class Cliente extends Thread{
     		}
             outToServer.println(tituloAPedir);
             System.out.println("va a pedir "+tituloAPedir);
-            File file = new File("./descargas/"+tituloAPedir);
+            file = new File("./descargas/"+tituloAPedir);
             // Get the size of the file
             
             fos = new FileOutputStream(file);
@@ -141,7 +142,13 @@ public class Cliente extends Thread{
     	 catch (Exception e) {
  			e.printStackTrace();
          	cerrarConexion();
-         	return "Error de conexión";
+         	//borra el file
+         	if(file != null)
+         	{
+         		file.delete();         		
+         	}
+         	
+         	return "Se termino abruptamente la descarga ";
  		} 
     	cerrarConexion();
         return "El archivo fue correctamente descargado en la carpeta ./descargas";
