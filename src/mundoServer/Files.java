@@ -21,6 +21,10 @@ public class Files {
 	
 	public File returnFile(String nombre)
 	{
+		if(nombre == null)
+		{
+			return null;
+		}
 		if(nombre.endsWith("4,84MB.pdf"))
 		{
 			return algorit;
