@@ -110,6 +110,8 @@ public class Cliente extends Thread{
 	 */
     public String pedirArchivo() {
     	File file = null;
+    	long startTime = System.currentTimeMillis();
+    	
     	try{
     		if(socket == null )
     		{
@@ -134,13 +136,21 @@ public class Cliente extends Thread{
                 fos.write(bytes, 0, count);
                 i++;
                 current+=count;
-                System.out.println("Escribiendo en el archivo el mensaje "+i+ " "+new String(bytes));
+                System.out.println("Llego paquete. Escribiendo en el archivo el mensaje numero "+i);
+                System.out.println("Descargado hasta el momento: "+current + "");
+                //descomentar la linea de abajo para ver el contenido del paquete
+                //System.out.println("contenido del paquete "+ " "+new String(bytes));
             }
 
-     	   
+            long endTime = System.currentTimeMillis();
+
+        	long duration = (endTime - startTime)/1000;
+        	
             System.out.println("File " + tituloAPedir
                 + " downloaded (" + current + " bytes read)");
             System.out.println("\n en la <rutadelrepo>/descargas se encuentra el archivo descargado");
+            
+            System.out.println("\n se demoro "+duration +" segundos \n");
             
     	}
     	 catch (Exception e) {
