@@ -70,6 +70,7 @@ public class ServidorHilo extends Thread {
 			{
 				//buffer de 1kB
 				cliente.setReceiveBufferSize(1024);
+				long tinicio = System.currentTimeMillis();
 				
 				//aqui estoy mandando x mensajes de 1 MB
 				long cuantosBytes = file.length();
@@ -91,8 +92,9 @@ public class ServidorHilo extends Thread {
 		            lleva += count;
 		            System.out.println("mandando al cliente el file, va"+lleva/(1024)+" KB");
 		        }
-		       
+		        
 		        System.out.println("termina de mandar el archivo");
+		        System.out.println("se demora " + (System.currentTimeMillis()-tinicio));
 			}
 			
 			
