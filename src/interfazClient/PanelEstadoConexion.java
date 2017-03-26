@@ -29,7 +29,7 @@ public class PanelEstadoConexion extends JPanel{
 		
 		add(txtEstado);
 		
-		VerificadorDeConexion verificador = new VerificadorDeConexion(this, interfaz.darCliente());
+		VerificadorDeConexion verificador = new VerificadorDeConexion(this);
 		verificador.start();
 	}
 	

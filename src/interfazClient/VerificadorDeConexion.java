@@ -4,20 +4,19 @@ import mundoClient.Cliente;
 
 public class VerificadorDeConexion extends Thread {
 	private PanelEstadoConexion panelEstado;
-	private Cliente cliente;
-	public VerificadorDeConexion(PanelEstadoConexion p, Cliente client)
+	public VerificadorDeConexion(PanelEstadoConexion p)
 	{
 		panelEstado = p;
-		cliente = client;
 	}
 	
 	public void run(){
+		int contador =0;
 		while(true)
 		{
 			//cambiarEstadoConexion
-			if(cliente != null)
+			if(panelEstado.pedirCliente() != null)
 			{
-				boolean conexion = cliente.darEstadoConexion();
+				boolean conexion = panelEstado.pedirCliente().darEstadoConexion();
 				panelEstado.cambiarEstadoConexion(conexion);
 				System.out.println("Conexión abierta:"+ conexion);
 				try {
@@ -27,11 +26,6 @@ public class VerificadorDeConexion extends Thread {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}
-			else
-			{
-				cliente = panelEstado.pedirCliente();
-				yield();
 			}
 
 		}
