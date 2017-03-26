@@ -153,15 +153,13 @@ public class Cliente {
 		}
     	
     }
-<<<<<<< HEAD
+
     
     public void detenerDescarga(){
     	
     }
     
     
-=======
->>>>>>> f08b7b09f10f5ef5b67938fad87ffde0be22d92c
     public boolean darEstadoConexion(){
     	return estadoConectado;
     }
