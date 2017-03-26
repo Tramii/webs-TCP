@@ -82,6 +82,7 @@ public class InterfazCliente extends JFrame{
 	
 	public void cerrarConexion(){
 		cliente.cerrarConexion();
+		panelArchivos.cerrarConexion();
 	}
 	
 	public Cliente darCliente(){
