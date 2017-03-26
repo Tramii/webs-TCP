@@ -62,8 +62,12 @@ public class PanelArchivos extends JPanel{
 		textLabel.setText("<html>Archivos disponibles para descargar: <br/>"+files+"</html>");
 	}
 	public void cerrarConexion(){
-		panelIzq = new JPanel();
-		textLabel = new JLabel("Inicia conexión para ver archivos",SwingConstants.CENTER);
+		
+		panelIzq.remove(archivo1);
+		panelIzq.remove(archivo2);
+		panelIzq.remove(archivo3);
+		panelIzq.repaint();
+		textLabel.setText("Inicia conexión para ver archivos");
 	}
 	public int darSeleccionado (){
 		

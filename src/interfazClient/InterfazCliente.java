@@ -138,6 +138,7 @@ public class InterfazCliente extends JFrame{
 	
 	public void detener(){
 		cliente.detenerDescarga();
+		panelArchivos.cerrarConexion();
 	}
 	
 	/**
