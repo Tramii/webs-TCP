@@ -66,7 +66,7 @@ public class InterfazCliente extends JFrame{
 		add( panelArchivos, BorderLayout.CENTER );
 		add( panelBotones, BorderLayout.SOUTH );
 		
-		cliente = new Cliente();
+		cliente = new Cliente(this);
 		listaFiles= "No se ha establecido conexion";
 	}
 
@@ -75,14 +75,17 @@ public class InterfazCliente extends JFrame{
 	//-----------------------------------------------------------------
 	public void iniciarConexion()
 	{
-		cliente = new Cliente();
+		JOptionPane.showMessageDialog(null, "Iniciando conexion");
+		cliente = new Cliente(this);
 		listaFiles = cliente.iniciarConexion();
+		JOptionPane.showMessageDialog(null, "Se ha establecido conexion");
 		panelArchivos.actualizarLabelFiles(listaFiles);
 	}
 	
 	public void cerrarConexion(){
 		cliente.cerrarConexion();
 		panelArchivos.cerrarConexion();
+		JOptionPane.showMessageDialog(null, "Ha cerrado la conexion");
 	}
 	
 	public Cliente darCliente(){
@@ -138,7 +141,12 @@ public class InterfazCliente extends JFrame{
 	
 	public void detener(){
 		cliente.detenerDescarga();
+		JOptionPane.showMessageDialog(null, "Ha detenido la descarga");
 		panelArchivos.cerrarConexion();
+	}
+	
+	public void terminoDeDescargar(){
+		JOptionPane.showMessageDialog(null, "El archivo solicitado ha sido correctamente descargado");
 	}
 	
 	/**

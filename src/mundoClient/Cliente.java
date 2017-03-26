@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import interfazClient.InterfazCliente;
+
 public class Cliente extends Thread{
 	
 	private InputStream inFromServer;
@@ -21,9 +23,10 @@ public class Cliente extends Thread{
 	private boolean estadoConectado;
 	private String tituloAPedir;
 	
-	
-	public Cliente()
+	private InterfazCliente interfaz;
+	public Cliente(InterfazCliente interfazC)
 	{
+		interfaz = interfazC;
 		estadoConectado=false;
 		tituloAPedir =null;
 	}
@@ -151,6 +154,7 @@ public class Cliente extends Thread{
          	return "Se termino abruptamente la descarga ";
  		} 
     	cerrarConexion();
+    	interfaz.terminoDeDescargar();
         return "El archivo fue correctamente descargado en la carpeta ./descargas";
     }
     
