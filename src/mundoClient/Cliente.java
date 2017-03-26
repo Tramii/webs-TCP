@@ -159,8 +159,12 @@ public class Cliente extends Thread{
     	 */
         try {
         	estadoConectado = false;
-			socket.close();
-			socket = null;
+        	if(socket != null)
+        	{
+        		socket.close();
+    			socket = null;
+        	}
+			
 		} catch (IOException e) {
 			System.out.println("Se ha detenido la descarga. No se podrá abrir el archivo.");
 		}
