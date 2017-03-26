@@ -22,6 +22,7 @@ public class Cliente extends Thread{
 	
 	private boolean estadoConectado;
 	private String tituloAPedir;
+	private boolean inicioDescarga;
 	
 	private InterfazCliente interfaz;
 	public Cliente(InterfazCliente interfazC)
@@ -29,6 +30,7 @@ public class Cliente extends Thread{
 		interfaz = interfazC;
 		estadoConectado=false;
 		tituloAPedir =null;
+		inicioDescarga = false;
 	}
 	
 	/**
@@ -36,7 +38,7 @@ public class Cliente extends Thread{
 	 * Si no se hace una peticion pronto, el servidor desconecta por time out
 	 * 
 	 * SE CUENTAN CON 2 MINUTOS ANTES DEL TIME OUT! SE DEBE LLAMAR A 
-	 * PEDIR ARCHIVO ANTES DE 2 MINUTOS
+	 * PEDIR ARCHIVO ANTES DE 1 MINUTO
 	 * 
 	 * return los files disponibles en el server
 	 */
@@ -48,7 +50,6 @@ public class Cliente extends Thread{
         try {
         	System.out.println("Creando socket en "+host  );
 			socket = new Socket(host, 8089);
-			
 			estadoConectado = true;
 			
 			inFromServer = socket.getInputStream();
@@ -73,7 +74,8 @@ public class Cliente extends Thread{
 				System.out.println(archivosDisponibles);
 				
 			//NO cierra el socket!! no lo cierra porque todavia falta pedir las cosas!!
-				
+				VerificadorTimeOut verificador = new VerificadorTimeOut(this);
+				verificador.start();
 				return archivosDisponibles;
 			}
 			
@@ -109,7 +111,10 @@ public class Cliente extends Thread{
 	 * @throws Exception
 	 */
     public String pedirArchivo() {
+    	inicioDescarga = true;
     	File file = null;
+    	long startTime = System.currentTimeMillis();
+    	
     	try{
     		if(socket == null )
     		{
@@ -134,13 +139,21 @@ public class Cliente extends Thread{
                 fos.write(bytes, 0, count);
                 i++;
                 current+=count;
-                System.out.println("Escribiendo en el archivo el mensaje "+i+ " "+new String(bytes));
+                System.out.println("Llego paquete. Escribiendo en el archivo el mensaje numero "+i);
+                System.out.println("Descargado hasta el momento: "+current + "");
+                //descomentar la linea de abajo para ver el contenido del paquete
+                //System.out.println("contenido del paquete "+ " "+new String(bytes));
             }
 
-     	   
+            long endTime = System.currentTimeMillis();
+
+        	long duration = (endTime - startTime)/1000;
+        	
             System.out.println("File " + tituloAPedir
                 + " downloaded (" + current + " bytes read)");
             System.out.println("\n en la <rutadelrepo>/descargas se encuentra el archivo descargado");
+            
+            System.out.println("\n se demoro "+duration +" segundos \n");
             
     	}
     	 catch (Exception e) {
@@ -156,6 +169,7 @@ public class Cliente extends Thread{
  		} 
     	cerrarConexion();
     	interfaz.terminoDeDescargar();
+    	inicioDescarga = false;
         return "El archivo fue correctamente descargado en la carpeta ./descargas";
     }
     
@@ -193,6 +207,9 @@ public class Cliente extends Thread{
     	return estadoConectado;
     }
     
+    public boolean inicioDescargaDocumento(){
+    	return inicioDescarga;
+    }
     
 
 }

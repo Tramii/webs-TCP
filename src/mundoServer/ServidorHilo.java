@@ -53,8 +53,9 @@ public class ServidorHilo extends Thread {
 				throw new Exception("no sigue el protocolo");
 			}
 			///time out in millis
-			//el cliente tiene 2 minutos para pedir algo
-			cliente.setSoTimeout(1000*60*2);
+			//el cliente tiene 1 minutos para pedir algo
+			// si se cambia este time out hay que cambiar tambien el del cliente
+			cliente.setSoTimeout(1000*60*1);
 			
 			outToClient.println("HI "+files.darListaTitulos());
 			System.out.println("envia inicio de conversacion "+"HI "+files.darListaTitulos());
