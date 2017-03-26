@@ -1,4 +1,4 @@
-package interfazClient;
+ package interfazClient;
 
 import mundoClient.Cliente;
 

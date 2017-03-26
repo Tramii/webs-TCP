@@ -3,6 +3,7 @@ package interfazClient;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import javafx.scene.layout.Border;
 import mundoClient.Cliente;
@@ -47,7 +48,7 @@ public class InterfazCliente extends JFrame{
 	public InterfazCliente(){
 
 		setLayout(new BorderLayout());
-		setSize(550,300);
+		setSize(480,300);
 		setResizable(false);
 		setTitle( "Cliente TCP" );
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
@@ -74,18 +75,34 @@ public class InterfazCliente extends JFrame{
 		listaFiles = cliente.iniciarConexion();
 		panelArchivos.actualizarLabelFiles(listaFiles);
 	}
+	
+	public void cerrarConexion(){
+		cliente.cerrarConexion();
+	}
+	
 	public Cliente darCliente(){
 		return cliente;
 	}
+	
 	public void descargar(){
-		//todo
+		int seleccionado = panelArchivos.darSeleccionado();
+		
+		if (seleccionado==-1) JOptionPane.showMessageDialog(this, "Se debe seleccionar un archivo", "Error", JOptionPane.ERROR_MESSAGE);
+		if (seleccionado==0) JOptionPane.showMessageDialog(this, "Se debe seleccionar sólo un archivo", "Error", JOptionPane.ERROR_MESSAGE);
+		else if (seleccionado==1) cliente.pedirArchivo("4,84MB.pdf");
+		else if (seleccionado==2) cliente.pedirArchivo("29MB.pdf");
+		else if (seleccionado==3) cliente.pedirArchivo("90MB.pdf");
+		
 	}
+	
 	public void detener(){
-		//todo
+		//TODO
 	}
+	
 	public void continuar(){
-		//todo
+		//TODO
 	}
+	
 	/**
 	 * Inicializa la aplicación
 	 * @param args argumentos de la aplicación, no se requiere ninguno

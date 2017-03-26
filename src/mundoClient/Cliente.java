@@ -1,8 +1,6 @@
 package mundoClient;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,9 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Cliente {
+	
 	private InputStream inFromServer;
 	private BufferedReader inFromServerLine;
 	private PrintWriter outToServer;
@@ -24,7 +22,6 @@ public class Cliente {
 	
 	public Cliente()
 	{
-		Socket socket = null;
 		estadoConectado=false;
 	}
 	
@@ -89,7 +86,20 @@ public class Cliente {
 	}
 	
 	/**
-	 * le llega un titulo por parametro y lo recupera y lo guarda en /descargas
+	 * Cierra conexión TCP
+	 * @throws Exception
+	 */
+	public void cerrarConexion(){
+		try {
+			socket.close();
+			estadoConectado = false;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Le llega un título por parámetro, lo recupera y lo guarda en ./descargas
 	 * @param titulo
 	 * @throws Exception
 	 */
@@ -110,7 +120,7 @@ public class Cliente {
             byte [] bytes  = new byte [1024*16];
             String tamanoEnMB = inFromServerLine.readLine();
             System.out.println("\n ya va a recibir el archivo que pesa "+tamanoEnMB);
-            int bytesRead = 0;
+            //int bytesRead = 0;
             int current = 0;
             
             int count;
@@ -138,14 +148,14 @@ public class Cliente {
  		} 
     	/**
     	 * siempre que termina de descargar algo, cierra conexion
-    	 */
+    	 
         try {
         	estadoConectado = false;
 			socket.close();
 			socket = null;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
         return "el archivo fue correctamente descargado a /descargas";
     }
     
