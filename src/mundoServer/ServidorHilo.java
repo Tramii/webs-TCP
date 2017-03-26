@@ -70,7 +70,7 @@ public class ServidorHilo extends Thread {
 			else
 			{
 				//buffer de 1kB
-				cliente.setReceiveBufferSize(1024);
+				cliente.setReceiveBufferSize(32768);
 				long tinicio = System.currentTimeMillis();
 				
 				//aqui estoy mandando x mensajes de 1 MB
@@ -82,7 +82,7 @@ public class ServidorHilo extends Thread {
 				
 				
 				//va a leer de a 1024 Bytes (mensaje) y mandarlos
-		        byte[] bytes = new byte[ 1024*16];
+		        byte[] bytes = new byte[16384];
 				long lleva=0;
 				
 				inFromFile = new FileInputStream(file);
