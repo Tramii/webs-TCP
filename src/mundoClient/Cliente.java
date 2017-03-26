@@ -162,7 +162,7 @@ public class Cliente extends Thread{
 			socket.close();
 			socket = null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Se ha detenido la descarga. No se podrá abrir el archivo.");
 		}
     	
     }

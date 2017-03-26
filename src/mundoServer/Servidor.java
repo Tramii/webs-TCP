@@ -19,9 +19,9 @@ public class Servidor
 	{
 		try 
 		{
-			clientesConectados = new ArrayList();
+			clientesConectados = new ArrayList<ServidorHilo>();
 			server = new ServerSocket(PUERTO);
-			clientesEsperando= new ArrayList();
+			clientesEsperando= new ArrayList<ServidorHilo>();
 			aceptarConexionesTCP();
 
 		} catch (IOException e) {
@@ -111,6 +111,7 @@ public class Servidor
 
 	}
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		Servidor server = new Servidor();
 	}
 
