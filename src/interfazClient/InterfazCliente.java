@@ -75,17 +75,17 @@ public class InterfazCliente extends JFrame{
 	//-----------------------------------------------------------------
 	public void iniciarConexion()
 	{
-		JOptionPane.showMessageDialog(null, "Iniciando conexion");
+		JOptionPane.showMessageDialog(null, "Iniciando conexión");
 		cliente = new Cliente(this);
 		listaFiles = cliente.iniciarConexion();
-		JOptionPane.showMessageDialog(null, "Se ha establecido conexion");
+		JOptionPane.showMessageDialog(null, "Se ha establecido conexión");
 		panelArchivos.actualizarLabelFiles(listaFiles);
 	}
 	
 	public void cerrarConexion(){
 		cliente.cerrarConexion();
 		panelArchivos.cerrarConexion();
-		JOptionPane.showMessageDialog(null, "Ha cerrado la conexion");
+		JOptionPane.showMessageDialog(null, "Ha cerrado la conexión");
 	}
 	
 	public Cliente darCliente(){
@@ -95,7 +95,7 @@ public class InterfazCliente extends JFrame{
 	public void descargar(){
 		if(!cliente.darEstadoConexion())
 		{
-			JOptionPane.showMessageDialog(null, "Debe iniciar sesion primero");
+			JOptionPane.showMessageDialog(null, "Debe iniciar sesión primero");
 			return;
 		}
 		int seleccionado = panelArchivos.darSeleccionado();
