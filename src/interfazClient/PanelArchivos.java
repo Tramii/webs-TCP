@@ -22,9 +22,11 @@ public class PanelArchivos extends JPanel{
 	
 	private JLabel textLabel;
 	
+	private JPanel panelIzq;
+	
 	public PanelArchivos(InterfazCliente interfaz){
 		principal = interfaz;
-		JPanel panelIzq = new JPanel();
+		panelIzq = new JPanel();
 		JPanel panelDer = new JPanel();
 		
 		panelIzq.setLayout(new GridLayout(3,1));		
@@ -34,9 +36,7 @@ public class PanelArchivos extends JPanel{
 		archivo2 = new JCheckBox("Archivo 2");
 		archivo3 = new JCheckBox("Archivo 3");
 		
-		panelIzq.add(archivo1);
-		panelIzq.add(archivo2);
-		panelIzq.add(archivo3);
+		
 		
 		textLabel = new JLabel("Inicia conexión para ver archivos",SwingConstants.CENTER);
 		panelDer.add(textLabel);
@@ -54,6 +54,10 @@ public class PanelArchivos extends JPanel{
 		{
 			files+= "<br/>"+(i+1)+". "+file[i]+"<br/> ";
 		}
+		
+		panelIzq.add(archivo1);
+		panelIzq.add(archivo2);
+		panelIzq.add(archivo3);
 		
 		textLabel.setText("<html>Archivos disponibles para descargar: <br/>"+files+"</html>");
 	}
