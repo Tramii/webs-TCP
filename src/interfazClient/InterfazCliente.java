@@ -1,7 +1,10 @@
 package interfazClient;
 
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -92,6 +95,21 @@ public class InterfazCliente extends JFrame{
 		else if (seleccionado==2) cliente.pedirArchivo("29MB.pdf");
 		else if (seleccionado==3) cliente.pedirArchivo("90MB.pdf");
 		
+	}
+	
+	public void verDescargas(){
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File("./descargas"));
+		int result = fileChooser.showOpenDialog(this);
+		if(result == JFileChooser.APPROVE_OPTION){
+			File selectedFile = fileChooser.getSelectedFile();
+			System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			try {
+				java.awt.Desktop.getDesktop().open(selectedFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void detener(){
