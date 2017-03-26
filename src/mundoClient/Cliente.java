@@ -85,18 +85,7 @@ public class Cliente {
         return archivosDisponibles;
 	}
 	
-	/**
-	 * Cierra conexión TCP
-	 * @throws Exception
-	 */
-	public void cerrarConexion(){
-		try {
-			socket.close();
-			estadoConectado = false;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+
 	
 	/**
 	 * Le llega un título por parámetro, lo recupera y lo guarda en ./descargas
@@ -138,28 +127,32 @@ public class Cliente {
     	}
     	 catch (Exception e) {
  			e.printStackTrace();
-         	try {
- 				socket.close();
- 				estadoConectado = false;
- 			} catch (IOException f) {
- 				f.printStackTrace();
- 			}
+         	cerrarConexion();
          	return "error de conexion";
  		} 
+    	cerrarConexion();
+        return "el archivo fue correctamente descargado a /descargas";
+    }
+    
+    
+	/**
+	 * Cierra conexión TCP
+	 * @throws Exception
+	 */
+
+    public void cerrarConexion(){
     	/**
     	 * siempre que termina de descargar algo, cierra conexion
-    	 
+    	 */
         try {
         	estadoConectado = false;
 			socket.close();
 			socket = null;
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
-        return "el archivo fue correctamente descargado a /descargas";
+		}
+    	
     }
-    
-    
     public boolean darEstadoConexion(){
     	return estadoConectado;
     }
