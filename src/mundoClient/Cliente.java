@@ -129,7 +129,7 @@ public class Cliente extends Thread{
             while ((count = inFromServer.read(bytes)) > 0) {
                 fos.write(bytes, 0, count);
                 current+=count;
-                System.out.println("Escribiendo en el archivo, mensaje "+ ((byte)count));
+                System.out.println("Escribiendo en el archivo, mensaje ");
             }
 
      	   

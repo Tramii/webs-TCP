@@ -36,6 +36,7 @@ public class InterfazCliente extends JFrame{
 	private PanelArchivos panelArchivos;
 	
 	private String listaFiles;
+	
 
 	//-----------------------------------------------------------------
     // Constructores
@@ -71,6 +72,7 @@ public class InterfazCliente extends JFrame{
 	//-----------------------------------------------------------------
 	public void iniciarConexion()
 	{
+		cliente = new Cliente();
 		listaFiles = cliente.iniciarConexion();
 		panelArchivos.actualizarLabelFiles(listaFiles);
 	}
@@ -84,6 +86,11 @@ public class InterfazCliente extends JFrame{
 	}
 	
 	public void descargar(){
+		if(!cliente.darEstadoConexion())
+		{
+			JOptionPane.showMessageDialog(null, "Debe iniciar sesion primero");
+			return;
+		}
 		int seleccionado = panelArchivos.darSeleccionado();
 		
 		if (seleccionado==-1) JOptionPane.showMessageDialog(this, "Se debe seleccionar un archivo", "Error", JOptionPane.ERROR_MESSAGE);
